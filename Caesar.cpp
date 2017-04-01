@@ -58,7 +58,8 @@ std::string Caesar::encrypt(const std::string& str, int shift_amount) const
         if (i > 0 && i % 4 == 0)
             ciphertext << " ";
 
-        try {
+        try
+        {
             ciphertext << shift(ch, shift_amount);
         }
         catch (CipherException& e)
@@ -116,26 +117,4 @@ bool Caesar::isletter(char ch) const
 {
     return (65 <= ch && ch <= 90) ||  /* A..Z */
            (97 <= ch && ch <= 122);   /* a..z */
-}
-
-bool Caesar::ispunctuation(char ch) const
-{
-    switch (ch)
-    {
-    case '!':
-    case '\"':
-    case '?':
-    case ',':
-    case '.':
-    case '\'':
-    case ';':
-    case ':':
-    case '-':
-    case '(':
-    case ')':
-    case 96:
-        return true;
-    default:
-        return false;
-    }
 }
