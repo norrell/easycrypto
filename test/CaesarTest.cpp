@@ -41,6 +41,13 @@ TEST_F(CaesarCipher, RemovesWhiteSpaceCharacters)
     ASSERT_THAT(caesar.encrypt("ab cd", 4), Eq("EFGH"));
 }
 
+TEST_F(CaesarCipher, EncryptsWithMemberShiftAmount)
+{
+    Caesar caesar1{1};
+
+    ASSERT_THAT(caesar1.encrypt("Nel mezzo del cammin"), Eq("OFMN FAAP EFMD BNNJ O"));
+}
+
 TEST_F(CaesarCipher, IgnoresCharactersThatArentLetters)
 {
     Caesar caesar1{1};
@@ -55,13 +62,6 @@ TEST_F(CaesarCipher, EncryptsPlaintextInBlocksOfFour)
 TEST_F(CaesarCipher, DecryptsUsingSameShiftAmountAsEncryption)
 {
     ASSERT_THAT(caesar.decrypt("EFGH", 4), Eq("ABCD"));
-}
-
-TEST_F(CaesarCipher, EncryptsWithMemberShiftAmount)
-{
-    Caesar caesar1{1};
-
-    ASSERT_THAT(caesar1.encrypt("Nel mezzo del cammin"), Eq("OFMN FAAP EFMD BNNJ O"));
 }
 
 TEST_F(CaesarCipher, PrintsTheKey)
