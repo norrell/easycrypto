@@ -34,8 +34,10 @@ public:
     std::string encrypt(const std::string& str) const;
     std::string encrypt(const std::string& str, int shift_amount) const;
     char shift(char letter, int shift_amount) const;
-    std::string print_shifted(int shift_amount) const;
-    std::string print_shifted() const;
+    std::string print_key(int shift_amount) const;
+    std::string print_key() const;
+    int shift_amount() const { return shift_amount_; }
+    std::string alphabet() const { return ALPHABET; }
 
 private:
     bool isletter(char ch) const;

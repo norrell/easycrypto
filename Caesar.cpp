@@ -52,23 +52,20 @@ std::string Caesar::encrypt(const std::string& str, int shift_amount) const
     int i = 0;
     for (auto ch : str)  // try replacing with std::for_each
     {
-        if (ispunctuation(ch))
+        if (!isletter(ch) || isspace(ch))
             continue;
 
-        if (!isspace(ch))
-        {
-            if (i > 0 && i % 4 == 0)
-                ciphertext << " ";
+        if (i > 0 && i % 4 == 0)
+            ciphertext << " ";
 
-            try {
-                ciphertext << shift(ch, shift_amount);
-            }
-            catch (CipherException& e)
-            {
-                throw;
-            }
-            ++i;
+        try {
+            ciphertext << shift(ch, shift_amount);
         }
+        catch (CipherException& e)
+        {
+            throw;
+        }
+        ++i;
     }
 
     return ciphertext.str();
@@ -77,17 +74,17 @@ std::string Caesar::encrypt(const std::string& str, int shift_amount) const
 char Caesar::shift(char ch, int shift_amount) const
 {
     if (!isletter(ch))
-        throw CipherException("");
+        throw CipherException("Only letters of the alphabet can be encrypted/decrypted");
 
     return ALPHABET[wrap_around(ALPHABET.find(toupper(ch)), shift_amount)];
 }
 
-std::string Caesar::print_shifted() const
+std::string Caesar::print_key() const
 {
     std::string shifted;
     try
     {
-        shifted = print_shifted(shift_amount_);
+        shifted = print_key(shift_amount_);
     }
     catch (CipherException& e)
     {
@@ -97,7 +94,7 @@ std::string Caesar::print_shifted() const
 }
 
 
-std::string Caesar::print_shifted(int shift_amount) const
+std::string Caesar::print_key(int shift_amount) const
 {
     std::string shifted(ALPHABET.length(), ' ');
     for (int i = 0; i < ALPHABET.length(); ++i)

@@ -1,7 +1,9 @@
 #include <iostream>
+#include <sstream>
+#include <string>
 #include "Caesar.h"
 
-int main(int argc, char* argv[])
+void do_caesar()
 {
     Caesar c{8};
     const std::string msg = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura";
@@ -10,14 +12,23 @@ int main(int argc, char* argv[])
               << "Plaintext:\n"
               << "Nel mezzo del cammin di nostra vita, mi ritrovai per una selva oscura" << '\n'
               << separator
-              << "Key: (shift = 8)\n"
-              << c.print_shifted() << '\n'
+              << "Key: (shift = " << c.shift_amount() << ")\n"
+              << c.print_key() << '\n'
               << separator
               << "Ciphertext:\n"
               << c.encrypt(msg) << '\n'
               << separator
-              << "Decrypted:\n"
+              << "Correspondence:\n"
+              << c.print_key() << '\n'
+              << c.alphabet() << '\n'
+              << separator
               << c.decrypt(c.encrypt(msg)) << '\n'
               << separator << std::endl;
+}
+
+int main(int argc, char* argv[])
+{
+    do_caesar();
+
     return 0;
 }

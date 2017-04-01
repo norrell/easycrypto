@@ -31,11 +31,6 @@ TEST_F(CaesarCipher, WrapsAroundWhenReachedEndOfAlphabet)
     ASSERT_THAT(caesar.shift('b', -6), Eq('V'));
 }
 
-TEST_F(CaesarCipher, ThrowsExceptionForNonAlphabeticCharacters)
-{
-    ASSERT_THROW(caesar.shift('7', 4), CipherException);
-}
-
 TEST_F(CaesarCipher, ShiftsAllLettersInString)
 {
     ASSERT_THAT(caesar.encrypt("abcd", 4), Eq("EFGH"));
@@ -44,6 +39,12 @@ TEST_F(CaesarCipher, ShiftsAllLettersInString)
 TEST_F(CaesarCipher, RemovesWhiteSpaceCharacters)
 {
     ASSERT_THAT(caesar.encrypt("ab cd", 4), Eq("EFGH"));
+}
+
+TEST_F(CaesarCipher, IgnoresCharactersThatArentLetters)
+{
+    Caesar caesar1{1};
+    ASSERT_THAT(caesar1.encrypt("Nel67# me+??zzo5657 del ca\"!mmin"), Eq("OFMN FAAP EFMD BNNJ O"));
 }
 
 TEST_F(CaesarCipher, EncryptsPlaintextInBlocksOfFour)
@@ -63,12 +64,7 @@ TEST_F(CaesarCipher, EncryptsWithMemberShiftAmount)
     ASSERT_THAT(caesar1.encrypt("Nel mezzo del cammin"), Eq("OFMN FAAP EFMD BNNJ O"));
 }
 
-TEST_F(CaesarCipher, IgnoresPunctuationMarks)
-{
-    ASSERT_THAT(caesar.encrypt("Io, tu"), Eq("IOTU"));
-}
-
 TEST_F(CaesarCipher, PrintsTheKey)
 {
-    ASSERT_THAT(caesar.print_shifted(), Eq("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+    ASSERT_THAT(caesar.print_key(), Eq("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
 }
