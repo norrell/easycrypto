@@ -36,10 +36,10 @@ TEST_F(CaesarCipher, ShiftsAllLettersInString)
     ASSERT_THAT(caesar.encrypt("abcd", 4), Eq("EFGH"));
 }
 
-TEST_F(CaesarCipher, RemovesWhiteSpaceCharacters)
-{
-    ASSERT_THAT(caesar.encrypt("ab cd", 4), Eq("EFGH"));
-}
+// TEST_F(CaesarCipher, IgnoresWhiteSpaceCharacters)
+// {
+//     ASSERT_THAT(caesar.encrypt("ab cd", 4), Eq("EFGH"));
+// }
 
 TEST_F(CaesarCipher, EncryptsWithMemberShiftAmount)
 {
@@ -48,7 +48,7 @@ TEST_F(CaesarCipher, EncryptsWithMemberShiftAmount)
     ASSERT_THAT(caesar1.encrypt("Nel mezzo del cammin"), Eq("OFMN FAAP EFMD BNNJ O"));
 }
 
-TEST_F(CaesarCipher, IgnoresCharactersThatArentLetters)
+TEST_F(CaesarCipher, IgnoresAllCharactersThatArentLetters)
 {
     Caesar caesar1{1};
     ASSERT_THAT(caesar1.encrypt("Nel67# me+??zzo5657 del ca\"!mmin"), Eq("OFMN FAAP EFMD BNNJ O"));

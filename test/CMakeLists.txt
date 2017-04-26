@@ -6,8 +6,10 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(../include)
 
 add_executable(tests main.cpp
-                    CaesarTest.cpp
-                    ../Caesar.cpp)
+                     SimpleSubstitutionTest.cpp
+                     #CaesarTest.cpp
+                     #../Caesar.cpp
+                     )
 
 target_link_libraries(tests gmock)
 
